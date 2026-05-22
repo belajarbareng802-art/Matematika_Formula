@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Matematika Formula</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- LOGIN PAGE -->
+  <div class="page active" id="page-login">
+    <div class="auth-bg">
+      <div class="math-deco">∑ π √ ∫  ÷ × ≠ ≤ ≥ ∞ Δ θ</div>
+    </div>
+    <div class="auth-card">
+      <div class="brand">
+        <span class="brand-icon">∑</span>
+        <h1>MatForma</h1>
+        <p>Kamus Rumus Matematika</p>
+      </div>
+      <div class="tab-switch">
+        <button class="tab-btn active" id="tab-login-btn" onclick="switchTab('login')">Masuk</button>
+        <button class="tab-btn" id="tab-register-btn" onclick="switchTab('register')">Daftar</button>
+      </div>
+
+      <!-- Login Form -->
+      <div class="form-section" id="form-login">
+        <div class="input-group">
+          <label>Email</label>
+          <input type="email" id="login-email" placeholder="nama@email.com" />
+        </div>
+        <div class="input-group">
+          <label>Password</label>
+          <input type="password" id="login-pass" placeholder="••••••••" />
+        </div>
+        <button class="btn-primary" onclick="doLogin()">Masuk</button>
+        <p class="form-note">Belum punya akun? <a href="#" onclick="switchTab('register')">Daftar sekarang</a></p>
+      </div>
+
+      <!-- Register Form -->
+      <div class="form-section hidden" id="form-register">
+        <div class="input-group">
+          <label>Nama Lengkap</label>
+          <input type="text" id="reg-name" placeholder="Nama kamu" />
+        </div>
+        <div class="input-group">
+          <label>Email</label>
+          <input type="email" id="reg-email" placeholder="nama@email.com" />
+        </div>
+        <div class="input-group">
+          <label>Password</label>
+          <input type="password" id="reg-pass" placeholder="Min. 6 karakter" />
+        </div>
+        <button class="btn-primary" onclick="doRegister()">Buat Akun</button>
+        <p class="form-note">Sudah punya akun? <a href="#" onclick="switchTab('login')">Masuk</a></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- DASHBOARD PAGE -->
+  <div class="page" id="page-dashboard">
+    <nav class="navbar">
+      <div class="nav-brand">
+        <span class="brand-icon">∑</span>
+        <span>MatForma</span>
+      </div>
+      <div class="nav-user">
+        <span id="nav-username">Siswa</span>
+        <button class="btn-logout" onclick="doLogout()">Keluar</button>
+      </div>
+    </nav>
+
+    <div class="dashboard-hero">
+      <h2>Halo, <span id="hero-name">Siswa</span>! 👋</h2>
+      <p>Mau belajar rumus apa hari ini?</p>
+      <div class="search-bar">
+        <input type="text" id="search-input" placeholder="Cari rumus, bab, atau topik..." oninput="doSearch(this.value)" />
+        <span class="search-icon">⌕</span>
+      </div>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="container">
+      <div class="progress-card">
+        <h3>Progress Belajar</h3>
+        <div class="progress-row">
+          <span>Rumus Dipelajari</span>
+          <span id="prog-count">0 / 12</span>
+        </div>
+        <div class="progress-bar-wrap">
+          <div class="progress-bar-fill" id="prog-bar" style="width: 0%"></div>
+        </div>
+        <p class="progress-tip" id="prog-tip">Mulai belajar untuk melacak progressmu!</p>
+      </div>
+    </div>
+
+    <!-- Categories -->
+    <div class="container">
+      <h3 class="section-title">Kategori Rumus</h3>
+      <div class="category-grid" id="category-grid">
+        <!-- injected by JS -->
+      </div>
+    </div>
+
+    <!-- Quick Nav -->
+    <div class="bottom-nav">
+      <button class="nav-item active" onclick="showPage('dashboard')">
+        <span>⌂</span><small>Beranda</small>
+      </button>
+      <button class="nav-item" onclick="showPage('kuis')">
+        <span>✎</span><small>Kuis</small>
+      </button>
+      <button class="nav-item" onclick="showPage('kalkulator')">
+        <span>⊞</span><small>Kalkulator</small>
+      </button>
+    </div>
+  </div>
+
+  <!-- RUMUS LIST PAGE -->
+  <div class="page" id="page-rumus">
+    <nav class="navbar">
+      <button class="btn-back" onclick="showPage('dashboard')">← Kembali</button>
+      <span class="nav-title" id="rumus-page-title">Rumus</span>
+    </nav>
+    <div class="container" id="rumus-list-container">
+      <!-- injected by JS -->
+    </div>
+    <div class="bottom-nav">
+      <button class="nav-item" onclick="showPage('dashboard')"><span>⌂</span><small>Beranda</small></button>
+      <button class="nav-item" onclick="showPage('kuis')"><span>✎</span><small>Kuis</small></button>
+      <button class="nav-item" onclick="showPage('kalkulator')"><span>⊞</span><small>Kalkulator</small></button>
+    </div>
+  </div>
+
+  <!-- DETAIL RUMUS PAGE -->
+  <div class="page" id="page-detail">
+    <nav class="navbar">
+      <button class="btn-back" id="detail-back-btn">← Kembali</button>
+      <span class="nav-title" id="detail-page-title">Detail Rumus</span>
+    </nav>
+    <div class="container" id="detail-container">
+      <!-- injected by JS -->
+    </div>
+  </div>
+
+  <!-- KUIS PAGE -->
+  <div class="page" id="page-kuis">
+    <nav class="navbar">
+      <button class="btn-back" onclick="showPage('dashboard')">← Kembali</button>
+      <span class="nav-title">Kuis Matematika</span>
+    </nav>
+    <div class="container">
+      <div id="kuis-start-screen">
+        <div class="kuis-hero">
+          <div class="kuis-icon">✎</div>
+          <h2>Uji Kemampuanmu!</h2>
+          <p>Kerjakan 5 soal matematika dan lihat skormu.</p>
+          <button class="btn-primary" onclick="startKuis()">Mulai Kuis</button>
+        </div>
+      </div>
+      <div id="kuis-play-screen" class="hidden">
+        <div class="kuis-header">
+          <span id="kuis-progress">Soal 1 / 5</span>
+          <span id="kuis-timer">⏱ 30s</span>
+        </div>
+        <div class="kuis-card">
+          <p class="kuis-question" id="kuis-question"></p>
+          <div class="kuis-options" id="kuis-options"></div>
+        </div>
+      </div>
+      <div id="kuis-result-screen" class="hidden">
+        <div class="result-card">
+          <div class="result-score" id="result-score">0/5</div>
+          <p class="result-label" id="result-label">Coba lagi ya!</p>
+          <div class="result-breakdown" id="result-breakdown"></div>
+          <button class="btn-primary" onclick="restartKuis()">Coba Lagi</button>
+        </div>
+      </div>
+    </div>
+    <div class="bottom-nav">
+      <button class="nav-item" onclick="showPage('dashboard')"><span>⌂</span><small>Beranda</small></button>
+      <button class="nav-item active" onclick="showPage('kuis')"><span>✎</span><small>Kuis</small></button>
+      <button class="nav-item" onclick="showPage('kalkulator')"><span>⊞</span><small>Kalkulator</small></button>
+    </div>
+  </div>
+
+  <!-- KALKULATOR PAGE -->
+  <div class="page" id="page-kalkulator">
+    <nav class="navbar">
+      <button class="btn-back" onclick="showPage('dashboard')">← Kembali</button>
+      <span class="nav-title">Kalkulator Rumus</span>
+    </nav>
+    <div class="container">
+      <div class="calc-tabs">
+        <button class="calc-tab active" onclick="switchCalc('pitagoras', this)">Pitagoras</button>
+        <button class="calc-tab" onclick="switchCalc('luas', this)">Luas Bangun</button>
+        <button class="calc-tab" onclick="switchCalc('kuadrat', this)">Persamaan</button>
+      </div>
+
+      <!-- Pitagoras -->
+      <div class="calc-section active" id="calc-pitagoras">
+        <div class="calc-card">
+          <h3>Teorema Pitagoras</h3>
+          <p class="formula-display">c² = a² + b²</p>
+          <div class="input-group">
+            <label>Sisi a</label>
+            <input type="number" id="pit-a" placeholder="Masukkan sisi a" />
+          </div>
+          <div class="input-group">
+            <label>Sisi b</label>
+            <input type="number" id="pit-b" placeholder="Masukkan sisi b" />
+          </div>
+          <button class="btn-primary" onclick="hitungPitagoras()">Hitung</button>
+          <div class="calc-result" id="pit-result"></div>
+        </div>
+      </div>
+
+      <!-- Luas -->
+      <div class="calc-section hidden" id="calc-luas">
+        <div class="calc-card">
+          <h3>Luas Bangun Datar</h3>
+          <div class="input-group">
+            <label>Pilih Bangun</label>
+            <select id="luas-shape" onchange="updateLuasForm()">
+              <option value="persegi">Persegi</option>
+              <option value="persegipanjang">Persegi Panjang</option>
+              <option value="segitiga">Segitiga</option>
+              <option value="lingkaran">Lingkaran</option>
+            </select>
+          </div>
+          <div id="luas-inputs"></div>
+          <button class="btn-primary" onclick="hitungLuas()">Hitung</button>
+          <div class="calc-result" id="luas-result"></div>
+        </div>
+      </div>
+
+      <!-- Persamaan Kuadrat -->
+      <div class="calc-section hidden" id="calc-kuadrat">
+        <div class="calc-card">
+          <h3>Persamaan Kuadrat</h3>
+          <p class="formula-display">ax² + bx + c = 0</p>
+          <div class="input-group">
+            <label>Nilai a</label>
+            <input type="number" id="kd-a" placeholder="Masukkan a" />
+          </div>
+          <div class="input-group">
+            <label>Nilai b</label>
+            <input type="number" id="kd-b" placeholder="Masukkan b" />
+          </div>
+          <div class="input-group">
+            <label>Nilai c</label>
+            <input type="number" id="kd-c" placeholder="Masukkan c" />
+          </div>
+          <button class="btn-primary" onclick="hitungKuadrat()">Hitung</button>
+          <div class="calc-result" id="kd-result"></div>
+        </div>
+      </div>
+    </div>
+    <div class="bottom-nav">
+      <button class="nav-item" onclick="showPage('dashboard')"><span>⌂</span><small>Beranda</small></button>
+      <button class="nav-item" onclick="showPage('kuis')"><span>✎</span><small>Kuis</small></button>
+      <button class="nav-item active" onclick="showPage('kalkulator')"><span>⊞</span><small>Kalkulator</small></button>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
